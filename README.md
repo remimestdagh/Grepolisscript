@@ -1,5 +1,6 @@
 # Grepolis
 Simple farming bot for Grepolis
+
 Possibility to farm bandit camps
 
 
