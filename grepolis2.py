@@ -83,7 +83,7 @@ def login(br):
 		search.send_keys(password)
 		search = br.find_element_by_name("login[Login]")
 		search.send_keys(Keys.RETURN)
-		time.sleep(5)
+		time.sleep(3)
 	except:
 		print("Autentification error..")
 		time.sleep(5)
@@ -94,7 +94,7 @@ def bonus_collector(br):
 	try:
 		search = br.find_element_by_css_selector(".js-tooltip-resources")
 		search.click()
-		time.sleep(5)
+		time.sleep(1)
 	except:
 		print("Daily bonus not available.")
 
@@ -121,7 +121,7 @@ def view_island(br):
 		print("The Island is being inspected.")
 	except:
 		print("Inspecting Island failed.")
-	time.sleep(4)
+	time.sleep(2)
 
 
 def get_town_info(br):
@@ -172,11 +172,11 @@ def speed_construction(br):
 		
 		free2 = br.find_element_by_css_selector(".button_new.instant_buy")
 		free2.click()
-		time.sleep(5)
+		time.sleep(2)
 		free3 = br.find_element_by_css_selector(".button_new.instant_buy")
 		free3.click()
 		print("Building list accelerated.")
-		time.sleep(3)
+		time.sleep(1)
 	except:
 		print("Can't accelerate building list.")
 
@@ -185,7 +185,7 @@ def get_population(br):
 		print("Attention, population is very low!")
 		br.execute_script("BuildingMain.buildBuilding('farm', 20);")
 
-	time.sleep(2)
+	time.sleep(1)
 
 def check_buildings(br):
 	webdriver.ActionChains(br).send_keys(Keys.ESCAPE).perform()
@@ -194,7 +194,7 @@ def check_buildings(br):
 		senate.click()
 		print("The Senate is being inspected.")
 		err_senate = False
-		time.sleep(2)
+		time.sleep(1)
 	except:
 		print("Senate inspecting is not available.")
 		err_senate = True
@@ -219,7 +219,7 @@ def check_buildings(br):
 				br.execute_script(comando_up)
 	webdriver.ActionChains(br).send_keys(Keys.ESCAPE).perform()
 	print("Finished upgrading buildings.")
-	time.sleep(5)
+	time.sleep(2)
 
 def collect_resources(br):
 	villages = br.find_elements_by_xpath("//*[@data-same_island='true']")
@@ -250,8 +250,10 @@ def collect_resources(br):
 		time.sleep(rand_time())
 
 
-def randomsleeper():
-	tijd = randint(590,610)
+def randomsleeper(start):
+	end = time.time()
+	tijd = randint(700,720)
+	tijd = tijd-(end-start)
 	print("Next session in " +str(tijd)+ " seconds")
 	time.sleep(tijd)
 
@@ -264,7 +266,7 @@ br = webdriver.Chrome(executable_path="chromedriver.exe")
 
 
 #start it up
-print("Oppening up Chrome....")
+print("Opening Chrome....")
 br.get(url)
 time.sleep(3)
 
@@ -274,6 +276,7 @@ bonus_collector(br)
 
 while(True):
 	try:
+		start = time.time()
 		find_town(br)
 		for n_city in range(0, towns_number):
 			print("Working in the city: "+get_city_name(br))
@@ -288,7 +291,7 @@ while(True):
 			collect_resources(br)
 			next_town(br)
 
-		randomsleeper()
+		randomsleeper(start)
 	except:
 		print("BOT ERROR!!!")
 		br.get(url)
