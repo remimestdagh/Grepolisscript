@@ -12,8 +12,8 @@ from selenium.webdriver.chrome.options import Options
 ###############
 url = "https://nl.grepolis.com/"
 print('################ GREPOLIS  BOT')
-username = "HenkHamster"#input('Username: ')
-password = "apenkool8"#input('Password: ')
+username = ""#input('Username: ')
+password = ""#input('Password: ')
 selected_town = "Stad van HenkHamster" #input("City name( 0 to don't select a main city ): ")
 towns_number = int(input('Number of cities: '))
 world_number = int(input('World number: '))
